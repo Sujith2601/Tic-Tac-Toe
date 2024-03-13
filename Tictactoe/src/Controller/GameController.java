@@ -25,12 +25,12 @@ public class GameController {
         game.getBoard().display();
     }
 
-    public Player getWinner() {
-        return null;
+    public String getWinner(Game game) {
+        return game.getWinner();
     }
 
     public GameStatus getGameStatus(Game game) {
-        return null;
+        return game.getGameStatus();
     }
 
 }

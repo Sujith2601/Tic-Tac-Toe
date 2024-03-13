@@ -4,7 +4,6 @@ import java.util.List;
 
 import Model.Game;
 import Model.GameStatus;
-import Model.Move;
 import Model.Player;
 
 public class GameController {
@@ -14,11 +13,11 @@ public class GameController {
         return game;
     }
 
-    public void undo() {
+    public void undo(Game game) {
 
     }
 
-    public void executeNextMove(Move move) {
+    public void executeNextMove(Game game) {
 
     }
 
@@ -30,7 +29,7 @@ public class GameController {
         return null;
     }
 
-    public GameStatus getGameStatus() {
+    public GameStatus getGameStatus(Game game) {
         return null;
     }
 

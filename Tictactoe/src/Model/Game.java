@@ -3,6 +3,9 @@ package Model;
 import java.util.ArrayList;
 import java.util.List;
 
+import Strategy.GameWinningStrategy;
+import Strategy.Oof1WinningStrategy;
+
 public class Game {
 
     private Board board;
@@ -11,6 +14,15 @@ public class Game {
     private GameStatus gameStatus;
     private String winner;
     private int nextPlayerIndex;
+    private GameWinningStrategy gameWinningStrategy;
+
+    public GameWinningStrategy getGameWinningStrategy() {
+        return gameWinningStrategy;
+    }
+
+    public void setGameWinningStrategy(GameWinningStrategy gameWinningStrategy) {
+        this.gameWinningStrategy = gameWinningStrategy;
+    }
 
     public static GameBuilder getBuilder() {
         return new GameBuilder();
@@ -53,6 +65,34 @@ public class Game {
         this.nextPlayerIndex = nextPlayerIndex;
     }
 
+    public void makeNextMove() {
+
+        Player currentPlayer = players.get(nextPlayerIndex);
+
+        Move move = currentPlayer.decideMove();
+
+        int row = move.getCell().getRow();
+        int col = move.getCell().getCol();
+
+        if(board.getBoard().get(row).get(col).getCellState()!=CellState.EMPTY) {
+            throw new IllegalArgumentException();
+        }
+
+        board.getBoard().get(row).get(col).setCellState(CellState.FILLED);
+        board.getBoard().get(row).get(col).setPlayer(currentPlayer);
+
+        moves.add(move);
+
+        if(gameWinningStrategy.checkWinner(board, currentPlayer, move.getCell())) {
+            gameStatus = GameStatus.ENDED;
+            winner = currentPlayer.getName();
+        }
+
+        nextPlayerIndex += 1;
+        nextPlayerIndex %= players.size();
+
+    }
+
     public static class GameBuilder {
 
         private int dimension;
@@ -87,6 +127,7 @@ public class Game {
             game.setMoves(new ArrayList<>());
             game.setPlayers(players);
             game.setNextPlayerIndex(0);
+            game.setGameWinningStrategy(new Oof1WinningStrategy(dimension));
             
             return game;
             

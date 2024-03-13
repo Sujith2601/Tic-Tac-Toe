@@ -69,7 +69,7 @@ public class TTT {
             }
 
             if(gameController.getGameStatus(game).equals(GameStatus.ENDED)) {
-                System.out.println("Winner of Game is: "+ gameController.getWinner());
+                System.out.println("Winner of Game is: "+ gameController.getWinner(game));
             } else {
                 System.out.println("Game is tied.");
             }

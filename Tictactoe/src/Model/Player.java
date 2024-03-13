@@ -1,5 +1,6 @@
 package Model;
 
+import java.util.Scanner;
 
 public class Player {
 
@@ -30,5 +31,21 @@ public class Player {
     }
     public void setPlayerType(PlayerType playerType) {
         this.playerType = playerType;
+    }
+
+    public Move decideMove() {
+
+        Scanner sc = new Scanner(System.in);
+        
+        System.out.println(name + "'s move: Enter the row where you want to make move");
+        int row = sc.nextInt();
+
+        System.out.println(name + "'s move: Enter the col where you want to make move");
+        int col = sc.nextInt();
+
+        sc.close();
+
+        return new Move(this, new Cell(row, col));
+
     }
 }

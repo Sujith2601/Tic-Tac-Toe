@@ -18,7 +18,7 @@ public class GameController {
     }
 
     public void executeNextMove(Game game) {
-
+        game.makeNextMove();
     }
 
     public void displayBoard(Game game) {
